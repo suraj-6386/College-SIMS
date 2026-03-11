@@ -1,0 +1,112 @@
+<%@ page import="java.sql.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<%
+    if (session == null || session.isNew() || session.getAttribute("userId") == null || session.getAttribute("userType") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+    
+    if (!"student".equals(session.getAttribute("userType"))) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+    
+    int userId = (Integer) session.getAttribute("userId");
+%>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Courses - SIMS</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/style.css">>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand"><h1>SIMS</h1><p>Student Portal</p></div>
+            <div class="nav-links">
+                <a href="student-dashboard.jsp" class="nav-link">Dashboard</a>
+                <a href="student-courses.jsp" class="nav-link active">My Courses</a>
+                <a href="student-attendance.jsp" class="nav-link">Attendance</a>
+                <a href="student-marks.jsp" class="nav-link">Marks</a>
+                <a href="logout.jsp" class="nav-link">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <h2>?? My Enrolled Subjects</h2>
+        
+        <div class="table-container"><table>
+                <thead>
+                    <tr>
+                        <th>Subject Code</th>
+                        <th>Subject Name</th>
+                        <th>Course</th>
+                        <th>Semester</th>
+                        <th>Credits</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        try {
+                            %>
+<%@ include file="../configure/DBConnection.jsp" %>
+<%
+                            
+                            String sql = "SELECT s.subject_code, s.subject_name, c.course_name, s.semester, s.credits, se.status " +
+                                        "FROM subject_enrollment se " +
+                                        "JOIN subjects s ON se.subject_id = s.subject_id " +
+                                        "JOIN courses c ON s.course_id = c.course_id " +
+                                        "WHERE se.student_id = ? ORDER BY s.semester, s.subject_code";
+                            PreparedStatement stmt = conn.prepareStatement(sql);
+                            stmt.setInt(1, userId);
+                            ResultSet rs = stmt.executeQuery();
+                            
+                            if (!rs.isBeforeFirst()) {
+                                out.println("<tr><td colspan='6' style='text-align:center;'>No subjects enrolled</td></tr>");
+                            }
+                            
+                            while (rs.next()) {
+                    %>
+                    <tr>
+                        <td><%= rs.getString("subject_code") %></td>
+                        <td><%= rs.getString("subject_name") %></td>
+                        <td><%= rs.getString("course_name") %></td>
+                        <td><%= rs.getInt("semester") %></td>
+                        <td><%= rs.getInt("credits") %></td>
+                        <td><span style="background:#d1fae5;color:#065f46;padding:0.25rem 0.75rem;border-radius:4px;"><%= rs.getString("status") %></span></td>
+                    </tr>
+                    <%
+                            }
+                            conn.close();
+                        } catch (Exception e) {
+                            out.println("<tr><td colspan='6' style='color:red;'>Error: " + e.getMessage() + "</td></tr>");
+                        }
+                    %>
+                </tbody>
+            </table></div>
+        </div>
+        
+        <div style="margin-top:2rem;">
+            <a href="student-dashboard.jsp" class="btn btn-secondary">? Back to Dashboard</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-bottom"> <p>&copy; 2026 SIMS - Student Information Management System. </p>
+            <p>&copy; SURAJ GUPTA | MCA</p></div>
+    </footer>
+</body>
+</html>
+
+
+
+

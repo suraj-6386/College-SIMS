@@ -1,29 +1,29 @@
-# SIMS — Student Information Management System
+# Student Information Management System (SIMS)
 
-> **DY Patil School of Science and Technology, Pune**
-> A comprehensive web-based academic management platform for students, faculty, and administrators.
-
----
-
-## Abstract
-
-The **Student Information Management System (SIMS)** is a multi-role web application built on the JSP/MySQL stack, designed to centralise academic operations at DY Patil School of Science and Technology, Pune. The system provides three distinct, role-based portals — for **Students**, **Teachers (Faculty)**, and **Administrators** — offering a unified interface to manage student records, attendance, grades, course assignments, and institutional announcements.
-
-SIMS replaces fragmented manual processes with a secure, real-time digital workflow, enabling academic institutions to operate with clarity and efficiency.
-
----
+This project is a web app for managing student details like attendance, marks, and courses. It lets students, teachers, and admins log in to view and update info.
 
 ## Tech Stack
+- HTML
+- CSS
+- JSP
+- MySQL
 
-| Layer        | Technology                           |
-|--------------|--------------------------------------|
-| Frontend     | HTML5, CSS3 (Custom — no Bootstrap)  |
-| Typography   | Libre Baskerville · Outfit (Google Fonts) |
-| Backend      | Java Server Pages (JSP)              |
-| Database     | MySQL 5.7+                           |
-| Server       | Apache Tomcat 9.x (via XAMPP)        |
-| JDBC Driver  | MySQL Connector/J (`mysql-connector-java.jar`) |
-| Security     | SHA-256 password hashing · Session management |
+## New Machine Setup
+
+1. Download and install XAMPP (includes Apache and MySQL).
+2. Start XAMPP and click "Start" for Apache and MySQL.
+3. Open phpMyAdmin in browser (localhost/phpmyadmin).
+4. Create a new database called "student_info_system".
+5. Import the SQLQUERY.sql file into the database.
+6. Copy the project folder to C:\xampp\htdocs\ or for Tomcat, to webapps folder.
+7. For Tomcat, start Tomcat server.
+8. Open browser and go to localhost/StudentInfoManageSystem (or htdocs path).
+9. Basic CSS has been added to provide modernized styling for tables, forms, and layouts across all pages.
+
+## Run Details
+- Register a new account as admin or teacher.
+- For testing, use admin email: admin@example.com, password: admin123 (if set in database).
+- Login at login.jsp.
 
 ---
 
