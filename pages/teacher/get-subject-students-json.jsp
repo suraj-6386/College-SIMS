@@ -13,7 +13,7 @@
         int subjectId = Integer.parseInt(subjectIdStr);
         
         %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
         
         String query = "SELECT st.student_id, st.full_name, st.roll_number " +
@@ -50,7 +50,7 @@
         
         out.print(json.toString());
     } catch (Exception e) {
-        // Return empty array on error to prevent JSON parse errors
+
         out.print("[]");
     }
 %>

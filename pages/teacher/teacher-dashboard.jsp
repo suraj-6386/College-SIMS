@@ -3,10 +3,10 @@
 
 <%
     if (session == null || session.isNew() || session.getAttribute("userId") == null || session.getAttribute("userType") == null) {
-        response.sendRedirect("login.jsp"); return;
+        response.sendRedirect("../common/login.jsp"); return;
     }
     if (!"teacher".equals(session.getAttribute("userType"))) {
-        response.sendRedirect("login.jsp"); return;
+        response.sendRedirect("../common/login.jsp"); return;
     }
     int teacherId = (Integer) session.getAttribute("userId");
 %>
@@ -17,7 +17,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teacher Dashboard — Dr. D. Y. Patil Vidyapeeth</title>
-    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../../styles/style.css">
 </head>
 <body>
     <nav class="navbar">
@@ -33,8 +33,8 @@
                 <a href="teacher-students.jsp">Students</a>
                 <a href="teacher-attendance.jsp">Attendance</a>
                 <a href="teacher-marks.jsp">Marks</a>
-                <a href="announcements.jsp">Announcements</a>
-                <a href="logout.jsp" class="btn btn-secondary">Sign Out</a>
+                <a href="../common/announcements.jsp">Announcements</a>
+                <a href="../common/logout.jsp" class="btn btn-secondary">Sign Out</a>
             </div>
         </div>
     </nav>
@@ -49,7 +49,7 @@
                     <%
                         try {
                             %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
                             PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) as cnt FROM subjects WHERE teacher_id = ?");
                             ps.setInt(1, teacherId);
@@ -68,7 +68,7 @@
                     <%
                         try {
                             %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
                             PreparedStatement ps = conn.prepareStatement(
                                 "SELECT COUNT(DISTINCT se.student_id) as cnt FROM subject_enrollment se " +

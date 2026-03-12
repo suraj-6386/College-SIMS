@@ -16,7 +16,7 @@
         int userId = Integer.parseInt(userIdStr);
         
         %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
         
         StringBuilder json = new StringBuilder("{");

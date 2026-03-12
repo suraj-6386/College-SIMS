@@ -3,7 +3,7 @@
 
 <%
     if (session.getAttribute("userId") == null || !"admin".equals(session.getAttribute("userType"))) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("../common/login.jsp");
         return;
     }
     
@@ -16,7 +16,7 @@
     if (action != null && userId != null && userType != null) {
         try {
             %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
             
             action = action.trim();
@@ -96,7 +96,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/style.css">>
+    <link rel="stylesheet" href="../../styles/style.css">
 </head>
 <body>
     <nav class="navbar">
@@ -109,12 +109,13 @@
                 <a href="admin-dashboard.jsp" class="nav-link">Dashboard</a>
                 <a href="admin-pending.jsp" class="nav-link active">Approvals</a>
                 <a href="admin-users.jsp" class="nav-link">Users</a>
-                <a href="logout.jsp" class="nav-link">Logout</a>
+                <a href="../common/logout.jsp" class="nav-link">Logout</a>
             </div>
         </div>
     </nav>
 
     <div class="dashboard-container">
+        <a href="admin-dashboard.jsp" class="back-btn">&larr; Back to Dashboard</a>
         <h2>Pending Registration Approvals</h2>
         
         <% if (!message.isEmpty()) { %>
@@ -139,7 +140,7 @@
                     <%
                         try {
                             %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
                             
                             String sql = "SELECT student_id as id, full_name, email, phone, 'student' as user_type, status FROM student WHERE status = 'pending'";
@@ -215,8 +216,6 @@
             </table></div>
         </div>
 
-        <div style="margin-top: 2rem;">
-            <a href="admin-dashboard.jsp" class="btn btn-secondary">? Back to Dashboard</a>
         </div>
     </div>
 

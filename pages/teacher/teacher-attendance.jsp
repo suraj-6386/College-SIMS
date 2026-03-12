@@ -5,12 +5,12 @@
     if (session == null || session.isNew() || 
         session.getAttribute("userId") == null || 
         session.getAttribute("userType") == null) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("../common/login.jsp");
         return;
     }
     
     if (!"teacher".equals(session.getAttribute("userType"))) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("../common/login.jsp");
         return;
     }
     
@@ -21,7 +21,7 @@
     if ("POST".equalsIgnoreCase(request.getMethod())) {
         try {
             %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
             
             int subjectId = Integer.parseInt(request.getParameter("subject_id"));
@@ -77,7 +77,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/style.css">>
+    <link rel="stylesheet" href="../../styles/style.css">
     <style>
         .attendance-form-section {
             background: white;
@@ -150,14 +150,15 @@
                 <a href="teacher-dashboard.jsp" class="nav-link">Dashboard</a>
                 <a href="teacher-attendance.jsp" class="nav-link active">Attendance</a>
                 <a href="teacher-marks.jsp" class="nav-link">Marks</a>
-                <a href="logout.jsp" class="nav-link">Logout</a>
+                <a href="../common/logout.jsp" class="nav-link">Logout</a>
             </div>
         </div>
     </nav>
 
     <div class="dashboard-container">
+        <a href="teacher-dashboard.jsp" class="back-btn">&larr; Back to Dashboard</a>
         <div class="page-header">
-            <h2>?? Mark Attendance</h2>
+            <h2>Mark Attendance</h2>
             <p>Select subject and date, then mark attendance for students</p>
         </div>
 
@@ -178,7 +179,7 @@
                             <%
                                 try {
                                     %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
                                     
                                     String sql = "SELECT s.subject_id, s.subject_code, s.subject_name, c.course_name, s.semester " +
@@ -235,8 +236,6 @@
             </form>
         </div>
 
-        <div style="margin-top: 2rem;">
-            <a href="teacher-dashboard.jsp" class="btn btn-secondary">? Back to Dashboard</a>
         </div>
     </div>
 
@@ -261,7 +260,7 @@
                 return;
             }
             
-            // Fetch students for the selected subject
+
             fetch('get-subject-students.jsp?subject_id=' + encodeURIComponent(subjectId))
                 .then(response => response.text())
                 .then(html => {

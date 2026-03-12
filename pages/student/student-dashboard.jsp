@@ -3,10 +3,10 @@
 
 <%
     if (session == null || session.isNew() || session.getAttribute("userId") == null || session.getAttribute("userType") == null) {
-        response.sendRedirect("login.jsp"); return;
+        response.sendRedirect("../common/login.jsp"); return;
     }
     if (!"student".equals(session.getAttribute("userType"))) {
-        response.sendRedirect("login.jsp"); return;
+        response.sendRedirect("../common/login.jsp"); return;
     }
     
     int userId = (Integer) session.getAttribute("userId");
@@ -15,7 +15,7 @@
     
     try {
         %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
         Statement stmt = conn.createStatement();
         
@@ -39,7 +39,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard — Dr. D. Y. Patil Vidyapeeth</title>
-    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../../styles/style.css">
 </head>
 <body>
     <nav class="navbar">
@@ -54,8 +54,8 @@
                 <a href="student-attendance.jsp">Attendance</a>
                 <a href="student-marks.jsp">Marks</a>
                 <a href="student-profile.jsp">Profile</a>
-                <a href="announcements.jsp">Announcements</a>
-                <a href="logout.jsp" class="btn btn-secondary">Sign Out</a>
+                <a href="../common/announcements.jsp">Announcements</a>
+                <a href="../common/logout.jsp" class="btn btn-secondary">Sign Out</a>
             </div>
         </div>
     </nav>

@@ -12,7 +12,7 @@
     
     try {
         %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
         
         String query = "SELECT st.student_id, st.full_name, st.roll_number " +

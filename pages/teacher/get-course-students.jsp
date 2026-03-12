@@ -15,7 +15,7 @@
         int courseId = Integer.parseInt(courseIdStr);
         
         %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
         
         String sql = "SELECT DISTINCT s.student_id, s.full_name, s.email, s.roll_number " +

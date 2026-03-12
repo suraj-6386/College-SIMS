@@ -5,12 +5,12 @@
     if (session == null || session.isNew() || 
         session.getAttribute("userId") == null || 
         session.getAttribute("userType") == null) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("../common/login.jsp");
         return;
     }
     
     if (!"teacher".equals(session.getAttribute("userType"))) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("../common/login.jsp");
         return;
     }
     
@@ -26,7 +26,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/style.css">>
+    <link rel="stylesheet" href="../../styles/style.css">
     <style>
         .courses-grid {
             display: grid;
@@ -181,21 +181,22 @@
                 <a href="teacher-students.jsp" class="nav-link">Students</a>
                 <a href="teacher-attendance.jsp" class="nav-link">Attendance</a>
                 <a href="teacher-marks.jsp" class="nav-link">Marks</a>
-                <a href="logout.jsp" class="nav-link">Logout</a>
+                <a href="../common/logout.jsp" class="nav-link">Logout</a>
             </div>
         </div>
     </nav>
 
     <div class="dashboard-container">
+        <a href="teacher-dashboard.jsp" class="back-btn">&larr; Back to Dashboard</a>
         <div class="page-header">
-            <h2>?? My Assigned Subjects</h2>
+            <h2>My Assigned Subjects</h2>
             <p>View and manage your subjects</p>
         </div>
 
         <%
             try {
                 %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
                 
         
@@ -327,8 +328,6 @@
             }
         %>
 
-        <div style="margin-top: 2rem;">
-            <a href="teacher-dashboard.jsp" class="btn btn-secondary">? Back to Dashboard</a>
         </div>
     </div>
 

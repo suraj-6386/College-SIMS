@@ -3,16 +3,16 @@
 
 <%
     if (session == null || session.isNew() || session.getAttribute("userId") == null || session.getAttribute("userType") == null) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("../common/login.jsp");
         return;
     }
     
-    if (!"student".equals(session.getAttribute("userType"))) {
-        response.sendRedirect("login.jsp");
+    if (!"teacher".equals(session.getAttribute("userType"))) {
+        response.sendRedirect("../common/login.jsp");
         return;
     }
     
-    int userId = (Integer) session.getAttribute("userId");
+    int teacherId = (Integer) session.getAttribute("userId");
 %>
 
 <!DOCTYPE html>
@@ -20,30 +20,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Courses - SIMS</title>
+    <title>My Subjects - SIMS</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/style.css">>
+    <link rel="stylesheet" href="../../styles/style.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-brand"><h1>SIMS</h1><p>Student Portal</p></div>
+            <div class="nav-brand"><h1>SIMS</h1><p>Teacher Portal</p></div>
             <div class="nav-links">
-                <a href="student-dashboard.jsp" class="nav-link">Dashboard</a>
-                <a href="student-courses.jsp" class="nav-link active">My Courses</a>
-                <a href="student-attendance.jsp" class="nav-link">Attendance</a>
-                <a href="student-marks.jsp" class="nav-link">Marks</a>
-                <a href="logout.jsp" class="nav-link">Logout</a>
+                <a href="teacher-dashboard.jsp" class="nav-link">Dashboard</a>
+                <a href="teacher-subjects.jsp" class="nav-link active">My Subjects</a>
+                <a href="../common/logout.jsp" class="nav-link">Logout</a>
             </div>
         </div>
     </nav>
 
     <div class="dashboard-container">
-        <h2>?? My Enrolled Subjects</h2>
+        <a href="teacher-dashboard.jsp" class="back-btn">&larr; Back to Dashboard</a>
+        <h2>My Subjects</h2>
         
-        <div class="table-container"><table>
+        <div class="form-section">
+            <div class="table-container"><table class="data-table">
                 <thead>
                     <tr>
                         <th>Subject Code</th>
@@ -51,30 +51,26 @@
                         <th>Course</th>
                         <th>Semester</th>
                         <th>Credits</th>
-                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <%
                         try {
                             %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
                             
-                            String sql = "SELECT s.subject_code, s.subject_name, c.course_name, s.semester, s.credits, se.status " +
-                                        "FROM subject_enrollment se " +
-                                        "JOIN subjects s ON se.subject_id = s.subject_id " +
-                                        "JOIN courses c ON s.course_id = c.course_id " +
-                                        "WHERE se.student_id = ? ORDER BY s.semester, s.subject_code";
-                            PreparedStatement stmt = conn.prepareStatement(sql);
-                            stmt.setInt(1, userId);
+                            PreparedStatement stmt = conn.prepareStatement(
+                                "SELECT s.*, c.course_name FROM subjects s " +
+                                "JOIN courses c ON s.course_id = c.course_id " +
+                                "WHERE s.teacher_id = ? ORDER BY s.semester, s.subject_name"
+                            );
+                            stmt.setInt(1, teacherId);
                             ResultSet rs = stmt.executeQuery();
                             
-                            if (!rs.isBeforeFirst()) {
-                                out.println("<tr><td colspan='6' style='text-align:center;'>No subjects enrolled</td></tr>");
-                            }
-                            
+                            boolean hasSubjects = false;
                             while (rs.next()) {
+                                hasSubjects = true;
                     %>
                     <tr>
                         <td><%= rs.getString("subject_code") %></td>
@@ -82,22 +78,31 @@
                         <td><%= rs.getString("course_name") %></td>
                         <td><%= rs.getInt("semester") %></td>
                         <td><%= rs.getInt("credits") %></td>
-                        <td><span style="background:#d1fae5;color:#065f46;padding:0.25rem 0.75rem;border-radius:4px;"><%= rs.getString("status") %></span></td>
                     </tr>
                     <%
                             }
+                            
+                            if (!hasSubjects) {
+                    %>
+                    <tr>
+                        <td colspan="5" style="text-align:center;">No subjects assigned yet.</td>
+                    </tr>
+                    <%
+                            }
+                            
                             conn.close();
                         } catch (Exception e) {
-                            out.println("<tr><td colspan='6' style='color:red;'>Error: " + e.getMessage() + "</td></tr>");
+                    %>
+                    <tr>
+                        <td colspan="5" style="text-align:center; color:red;">Error: <%= e.getMessage() %></td>
+                    </tr>
+                    <%
                         }
                     %>
                 </tbody>
             </table></div>
         </div>
         
-        <div style="margin-top:2rem;">
-            <a href="student-dashboard.jsp" class="btn btn-secondary">? Back to Dashboard</a>
-        </div>
     </div>
 
     <footer class="footer">

@@ -6,7 +6,7 @@
     session.setAttribute("userType", null);
     session.setAttribute("userEmail", null);
     session.invalidate();
-    response.sendRedirect("index.html");
+    response.sendRedirect("../../index.html");
 %>
 
 

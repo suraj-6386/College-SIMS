@@ -3,12 +3,12 @@
 
 <%
     if (session == null || session.isNew() || session.getAttribute("userId") == null || session.getAttribute("userType") == null) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("../common/login.jsp");
         return;
     }
     
     if (!"teacher".equals(session.getAttribute("userType"))) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("../common/login.jsp");
         return;
     }
     
@@ -19,7 +19,7 @@
     if ("POST".equalsIgnoreCase(request.getMethod())) {
         try {
             %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
             
             int studentId = Integer.parseInt(request.getParameter("student_id"));
@@ -91,7 +91,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/style.css">>
+    <link rel="stylesheet" href="../../styles/style.css">
     <style>
         .marks-container { max-width: 800px; margin: 0 auto; padding: 2rem; }
         .form-section { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 2rem; }
@@ -119,14 +119,15 @@
             <div class="nav-links">
                 <a href="teacher-dashboard.jsp" class="nav-link">Dashboard</a>
                 <a href="teacher-marks.jsp" class="nav-link active">Marks</a>
-                <a href="logout.jsp" class="nav-link">Logout</a>
+                <a href="../common/logout.jsp" class="nav-link">Logout</a>
             </div>
         </div>
     </nav>
 
     <div class="dashboard-container">
+        <a href="teacher-dashboard.jsp" class="back-btn">&larr; Back to Dashboard</a>
         <div class="marks-container">
-            <h2>?? Enter Marks</h2>
+            <h2>Enter Marks</h2>
             <p>Select subject and student, then enter marks</p>
             
             <% if (!message.isEmpty()) { %>
@@ -142,7 +143,7 @@
                         <%
                             try {
                                 %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
                                 String sql = "SELECT s.subject_id, s.subject_code, s.subject_name, c.course_name, s.semester " +
                                             "FROM subjects s JOIN courses c ON s.course_id = c.course_id " +
@@ -210,9 +211,6 @@
                     </div>
                 </form>
             </div>
-            
-            <div style="margin-top: 2rem;">
-                <a href="teacher-dashboard.jsp" class="btn btn-secondary">? Back to Dashboard</a>
             </div></div>
 
     <footer class="footer">

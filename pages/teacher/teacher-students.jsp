@@ -3,7 +3,7 @@
 
 <%
     if (session.getAttribute("userId") == null || !"teacher".equals(session.getAttribute("userType"))) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("../common/login.jsp");
         return;
     }
     int teacherId = (Integer) session.getAttribute("userId");
@@ -20,7 +20,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/style.css">>
+    <link rel="stylesheet" href="../../styles/style.css">
 </head>
 <body>
     <nav class="navbar">
@@ -33,12 +33,13 @@
                 <a href="teacher-dashboard.jsp" class="nav-link">Dashboard</a>
                 <a href="teacher-students.jsp" class="nav-link active">Students</a>
                 <a href="teacher-attendance.jsp" class="nav-link">Attendance</a>
-                <a href="logout.jsp" class="nav-link">Logout</a>
+                <a href="../common/logout.jsp" class="nav-link">Logout</a>
             </div>
         </div>
     </nav>
 
     <div class="dashboard-container">
+        <a href="teacher-dashboard.jsp" class="back-btn">&larr; Back to Dashboard</a>
         <h2>My Students</h2>
 
         <div class="table-container"><table>
@@ -56,7 +57,7 @@
                     <%
                         try {
                             %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
                             
                             String sql;
@@ -113,8 +114,6 @@
             </table></div>
         </div>
 
-        <div style="margin-top: 2rem;">
-            <a href="teacher-dashboard.jsp" class="btn btn-secondary">? Back to Dashboard</a>
         </div>
     </div>
 

@@ -3,12 +3,12 @@
 
 <%
     if (session == null || session.isNew() || session.getAttribute("userId") == null || session.getAttribute("userType") == null) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("../common/login.jsp");
         return;
     }
     
     if (!"student".equals(session.getAttribute("userType"))) {
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("../common/login.jsp");
         return;
     }
     
@@ -24,7 +24,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles/style.css">>
+    <link rel="stylesheet" href="../../styles/style.css">
 </head>
 <body>
     <nav class="navbar">
@@ -33,18 +33,19 @@
             <div class="nav-links">
                 <a href="student-dashboard.jsp" class="nav-link">Dashboard</a>
                 <a href="student-profile.jsp" class="nav-link active">Profile</a>
-                <a href="logout.jsp" class="nav-link">Logout</a>
+                <a href="../common/logout.jsp" class="nav-link">Logout</a>
             </div>
         </div>
     </nav>
 
     <div class="dashboard-container">
+        <a href="student-dashboard.jsp" class="back-btn">&larr; Back to Dashboard</a>
         <h2>My Profile</h2>
         
         <%
             try {
                 %>
-<%@ include file="../configure/DBConnection.jsp" %>
+<%@ include file="../../configure/DBConnection.jsp" %>
 <%
                 
                 PreparedStatement stmt = conn.prepareStatement("SELECT s.*, c.course_name FROM student s LEFT JOIN courses c ON s.course_id = c.course_id WHERE s.student_id = ?");
@@ -72,9 +73,6 @@
                 out.println("<p style='color:red;'>Error: " + e.getMessage() + "</p>");
             }
         %>
-        
-        <div style="margin-top:2rem;">
-            <a href="student-dashboard.jsp" class="btn btn-secondary">? Back to Dashboard</a>
         </div>
     </div>
 

@@ -1,34 +1,47 @@
-Frontend Files:
-- index.html - Main landing page with links to login and register.
-- style.css - Basic CSS styles for the website layout, tables, forms, and colors.
+Role-Based Directory Structure:
 
-Backend Logic Files:
-- login.jsp - Page for users to sign in with email and password.
-- registration.jsp - Form for new users to create an account as student or teacher.
-- logout.jsp - Ends the user session and logs out.
-- student-dashboard.jsp - Shows student's overview with courses, marks, and attendance.
-- student-courses.jsp - Lists the courses the student is enrolled in.
-- student-attendance.jsp - Displays the student's attendance records.
-- student-marks.jsp - Shows the student's grades for subjects.
-- student-profile.jsp - Page to view and edit student profile details.
-- teacher-dashboard.jsp - Teacher's main page with assigned subjects and students.
-- teacher-courses.jsp - Lists courses taught by the teacher.
-- teacher-attendance.jsp - Allows teacher to mark attendance for students.
-- teacher-marks.jsp - Page for teacher to enter or update student marks.
-- teacher-profile.jsp - Shows teacher profile information.
-- teacher-students.jsp - Lists students under the teacher's subjects.
-- teacher-subjects.jsp - Displays subjects assigned to the teacher.
-- admin-dashboard.jsp - Admin overview with user stats and quick actions.
-- admin-pending.jsp - Page for admin to approve pending user registrations.
-- admin-users.jsp - Table of all users for admin to manage.
-- announcements.jsp - Page to view or post announcements.
-- courses.jsp - Lists all courses in the system.
-- error.jsp - Shows error messages if something goes wrong.
-- get-course-students.jsp - Fetches students enrolled in a specific course.
-- get-subject-students.jsp - Gets students for a particular subject.
-- get-user-details.jsp - Retrieves details of a specific user.
-- reports.jsp - Generates reports on users, courses, etc.
-- subjects.jsp - Lists all subjects available.
+/pages/admin/
+- admin-dashboard.jsp - Admin main entry point with quick stats.
+- admin-pending.jsp - Approve or reject new student/teacher registrations.
+- admin-users.jsp - Manage all active users in the system.
+- courses.jsp - Add or update courses and subjects.
+- subjects.jsp - Subject management and teacher assignment.
+- reports.jsp - System-wide academic and enrollment analytics.
+- get-user-details.jsp - AJAX helper for fetching user metadata.
 
-Database Files:
-- SQLQUERY.sql - SQL script to create database tables and insert sample data.
+/pages/teacher/
+- teacher-dashboard.jsp - Teacher's primary overview.
+- teacher-attendance.jsp - Mark and edit student attendance.
+- teacher-marks.jsp - Enter and update student grades.
+- teacher-students.jsp - View students enrolled in assigned subjects.
+- teacher-courses.jsp - View all assigned subjects.
+- teacher-profile.jsp - Personal faculty profile.
+- get-subject-students.jsp - AJAX helper for loading students by subject.
+- get-subject-students-json.jsp - JSON API for student enrollment data.
+
+/pages/student/
+- student-dashboard.jsp - Student's academic overview.
+- student-attendance.jsp - Personal attendance history.
+- student-marks.jsp - View grades and marks.
+- student-courses.jsp - List of enrolled subjects.
+- student-profile.jsp - Personal academic profile.
+
+/pages/common/
+- login.jsp - Unified login portal for all roles.
+- registration.jsp - Shared registration form for students and teachers.
+- logout.jsp - Session termination and redirect to index.
+- announcements.jsp - Global announcement feed.
+- error.jsp - Universal error handling page.
+
+/configure/
+- DBConnection.jsp - Centralized database connection logic.
+
+/styles/
+- style.css - Global "Digital Craftsmanship" design system.
+
+/images/
+- logo.png - Main system logo asset.
+- image.png - Background or auxiliary images.
+
+Root:
+- index.html - Landing page with login and registration entry points.
