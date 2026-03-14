@@ -1,7 +1,7 @@
 Role-Based Directory Structure:
 
 /pages/admin/
-- admin-dashboard.jsp - Admin main entry point with quick stats.
+- admin-dashboard.jsp - Admin Dashboard
 - admin-pending.jsp - Approve or reject new student/teacher registrations.
 - admin-users.jsp - Manage all active users in the system.
 - courses.jsp - Add or update courses and subjects.
@@ -10,7 +10,7 @@ Role-Based Directory Structure:
 - get-user-details.jsp - AJAX helper for fetching user metadata.
 
 /pages/teacher/
-- teacher-dashboard.jsp - Teacher's primary overview.
+- teacher-dashboard.jsp - Teacher's dashboard
 - teacher-attendance.jsp - Mark and edit student attendance.
 - teacher-marks.jsp - Enter and update student grades.
 - teacher-students.jsp - View students enrolled in assigned subjects.
@@ -20,28 +20,27 @@ Role-Based Directory Structure:
 - get-subject-students-json.jsp - JSON API for student enrollment data.
 
 /pages/student/
-- student-dashboard.jsp - Student's academic overview.
+- student-dashboard.jsp - Student's dashboard
 - student-attendance.jsp - Personal attendance history.
 - student-marks.jsp - View grades and marks.
 - student-courses.jsp - List of enrolled subjects.
 - student-profile.jsp - Personal academic profile.
 
 /pages/common/
-- login.jsp - Unified login portal for all roles.
-- registration.jsp - Shared registration form for students and teachers.
+- login.jsp - login portal for all roles.
+- registration.jsp - registration form for students and teachers.
 - logout.jsp - Session termination and redirect to index.
-- announcements.jsp - Global announcement feed.
-- error.jsp - Universal error handling page.
+- announcements.jsp - Global announcement for all
+- error.jsp - error handling page.
 
 /configure/
-- DBConnection.jsp - Centralized database connection logic.
+- DBConnection.jsp - centrlixsed database connection logic.
 
 /styles/
-- style.css - Global "Digital Craftsmanship" design system.
+- style.css - css file
 
 /images/
-- logo.png - Main system logo asset.
 - image.png - Background or auxiliary images.
 
 Root:
-- index.html - Landing page with login and registration entry points.
+- index.html - Landing page with login and registration entry points.
